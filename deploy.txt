@@ -1,0 +1,37 @@
+54.219.96.30
+
+http://54.219.96.30:8080/
+
+ec2-54-219-96-30.us-west-1.compute.amazonaws.com
+
+podcast_spring.cer : uploaded to project root
+ssh:
+ssh -i "keys/podcast_spring.cer" ec2-user@ec2-54-219-96-30.us-west-1.compute.amazonaws.com
+
+to copy war file to server/tomcat/webapp/ROOT.war
+scp -i keys/podcast_spring.cer ../listenonrepeat/spring-podcast/target/springboot-podcast-0.0.1-SNAPSHOT.war ec2-user@ec2-54-219-96-30.us-west-1.compute.amazonaws.com:apache-tomcat-8.5.31/webapps/ROOT.war
+
+
+
+
+
+sudo su - postgres
+psql
+
+\password
+
+postgres:
+db_name="podcast_demo"
+username:postgres
+password:toor
+
+to start tomcat:
+./apache-tomcat-8.5.31/bin/startup.sh
+
+to stop tomcat:
+./apache-tomcat-8.5.31/bin/shutdown.sh
+
+log:
+ tail -f apache-tomcat-8.5.31/logs/catalina.out
+
+

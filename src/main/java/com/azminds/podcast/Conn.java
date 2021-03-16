@@ -9,8 +9,8 @@ public class Conn {
     String host="localhost";
     String port="5432";
     String db_name="podcast_demo";
-    String username="illusionist";
-    String password="illusion";
+    String username="postgres";
+    String password="toor";
     try {
       Class.forName("org.postgresql.Driver");
       connection = DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+db_name+"", ""+username+"", ""+password+"");
