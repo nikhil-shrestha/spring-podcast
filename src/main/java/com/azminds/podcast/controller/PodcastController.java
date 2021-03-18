@@ -3,6 +3,8 @@ package com.azminds.podcast.controller;
 import com.azminds.podcast.exception.ResourceNotFoundException;
 import com.azminds.podcast.model.Podcast;
 import com.azminds.podcast.repository.PodcastRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +18,18 @@ import java.util.List;
 @RequestMapping("/api/v1/")
 public class PodcastController {
 
+  private static final Logger logger = LoggerFactory.getLogger(PodcastController.class);
+
   @Autowired
   private PodcastRepository podcastRepository;
 
   //  get podcast
   @GetMapping("podcast")
   public List<Podcast> listPodcast() {
-    return this.podcastRepository.findAll();
+    List<Podcast> podcasts = this.podcastRepository.findAll();
+    logger.info("[listPodcast]", podcasts);
+    System.out.println(podcasts);
+    return podcasts;
   }
 
   //  get podcast by ID
