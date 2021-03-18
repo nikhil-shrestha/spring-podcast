@@ -2,6 +2,7 @@ package com.azminds.podcast.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -11,51 +12,52 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Table(name = "episode")
 public class Episode implements Serializable {
 
-
     @Id
     @SequenceGenerator(
-            name = "episode_sequence",
-            sequenceName = "episode_sequence",
-            allocationSize = 1
+        name = "episode_sequence",
+        sequenceName = "episode_sequence",
+        allocationSize = 1
     )
     @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "episode_sequence"
+        strategy = SEQUENCE,
+        generator = "episode_sequence"
     )
     @Column(
-            name = "id",
-            updatable = false
+        name = "id",
+        updatable = false
     )
     private Long id;
 
     @Column(
-            name = "title",
-            nullable = false
+        name = "title",
+        nullable = false,
+        columnDefinition = "TEXT"
     )
     private String title;
 
     @Column(
-            name = "description",
-            nullable = false
+        name = "description",
+        nullable = false,
+        columnDefinition = "TEXT"
     )
     private String description;
 
     @Column(
-            name = "guid",
-            nullable = false
+        name = "guid",
+        nullable = false
     )
     private String guid;
 
     @Column(
-            name = "link",
-            nullable = false
+        name = "link",
+        nullable = false
     )
     private String link;
 
     @Column(
-            name = "pub_date",
-            nullable = false,
-            columnDefinition = "TIMESTAMP"
+        name = "pub_date",
+        nullable = false,
+        columnDefinition = "TIMESTAMP"
     )
     private Date pubDate;
 
@@ -65,22 +67,28 @@ public class Episode implements Serializable {
     @Column(name = "duration")
     private String duration;
 
-    @Column(name = "podcast_id")
-    private Long podcastId;
+    @ManyToOne
+    @JoinColumn(
+        name = "podcast_id",
+        nullable = false,
+        referencedColumnName = "id",
+        foreignKey = @ForeignKey(
+            name = "podcast_episode_fk"
+        )
+    )
+    private Podcast podcast;
 
     public Episode(String title,
                    String description,
                    String guid,
-                   String link,
+                   URL link,
                    Date pubDate,
-                   String episodeNumber,
                    String duration) {
         this.title = title;
         this.description = description;
         this.guid = guid;
-        this.link = link;
+        this.link = link.toString();
         this.pubDate = pubDate;
-        this.episodeNumber = episodeNumber;
         this.duration = duration;
     }
 
@@ -123,8 +131,8 @@ public class Episode implements Serializable {
         return link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLink(URL link) {
+        this.link = link.toString();
     }
 
     public Date getPubDate() {
@@ -135,16 +143,19 @@ public class Episode implements Serializable {
         this.pubDate = pubDate;
     }
 
+    public void setPodcast(Podcast podcast) {
+        this.podcast = podcast;
+    }
 
     @Override
     public String toString() {
         return "Episode{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", guid='" + guid + '\'' +
-                ", link='" + link + '\'' +
-                ", pubDate=" + pubDate +
-                '}';
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", description='" + description + '\'' +
+            ", guid='" + guid + '\'' +
+            ", link='" + link + '\'' +
+            ", pubDate=" + pubDate +
+            '}';
     }
 }

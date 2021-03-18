@@ -13,29 +13,29 @@ public class Genre implements Serializable {
 
     @Id
     @SequenceGenerator(
-            name = "genre_sequence",
-            sequenceName = "genre_sequence",
-            allocationSize = 1
+        name = "genre_sequence",
+        sequenceName = "genre_sequence",
+        allocationSize = 1
     )
     @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "genre_sequence"
+        strategy = SEQUENCE,
+        generator = "genre_sequence"
     )
     @Column(
-            name = "id",
-            updatable = false
+        name = "id",
+        updatable = false
     )
     private Long id;
 
     @Column(
-            name = "name",
-            nullable = false
+        name = "name",
+        nullable = false
     )
     private String name;
 
     @Column(
-            name = "genre_id_old",
-            nullable = false
+        name = "genre_id_old",
+        nullable = false
     )
     private String genreIdOld;
 
@@ -81,9 +81,9 @@ public class Genre implements Serializable {
     @Override
     public String toString() {
         return "Genre{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", genreIdOld='" + genreIdOld + '\'' +
-                '}';
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", genreIdOld='" + genreIdOld + '\'' +
+            '}';
     }
 }
