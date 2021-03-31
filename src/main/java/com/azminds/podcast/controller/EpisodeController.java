@@ -15,23 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/episode")
 public class EpisodeController {
 
   @Autowired
   private EpisodeRepository episodeRepository;
 
-  //  get podcast
-  @GetMapping("podcast/{id}/episodes")
-  public List<Episode> listEpisodes(
-      @PathVariable(value = "id") Long podcastID
-  ) throws ResourceNotFoundException  {
-    System.out.println("podcastID::" + podcastID);
-    return episodeRepository.findAllByPodcastId(podcastID);
-  }
-
   //  get podcast by ID
-  @GetMapping("episode/{id}")
+  @GetMapping("{id}")
   public ResponseEntity<Episode> getPodcastByID(
       @PathVariable(value = "id") Long episodeID
   ) throws ResourceNotFoundException {
